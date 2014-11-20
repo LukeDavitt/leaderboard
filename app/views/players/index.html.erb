@@ -1,0 +1,40 @@
+
+<div class="container">
+	<%= link_to 'New Player', new_player_path, :class=>"btn new"%>
+	<table class="table table-bordered table-striped">
+	  <thead>
+	    <tr>
+	      <th>
+	        Name
+	      </th>
+	      <th>
+	        Score
+	      </th>
+	      <th>
+	      	Rank/Description
+	      </th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @players.each do |player| %>
+	      <tr data-item-id=<%= "#{player.id}" %> class="item">
+	        <td>
+	          <%= player.name %>
+	        </td>
+	        <td>
+	          <%= player.score %>
+	        </td>
+	        <td>
+	        	<%= link_to player_path(player), :method => :delete, :data => {:confirm => 'Are you sure?'}, :class => "btn btn-notext pull-right" do %>
+		        	<span class="glyphicon glyphicon-remove">Delete</span>
+		        <% end %>
+		        <%= player.rank %>
+
+		        <%= link_to 'show', player_path(player), :class => 'btn btn-default pull-right' %> 
+		        
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>

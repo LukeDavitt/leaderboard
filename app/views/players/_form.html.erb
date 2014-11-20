@@ -1,0 +1,19 @@
+<div class="container">
+  <%= form_for(@player, html: {role: "form", class: "ma-form"}) do |f| %>
+
+    
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="form-group">
+      <%= f.label :score %>
+      <%= f.text_field :score %>
+    </div>
+    <div class="form-actions">
+      <%= link_to 'Cancel', players_path, :class => "btn btn-info" %>
+      <%= f.submit 'Submit', :class => "btn btn-primary" %>
+    </div>
+
+  <% end %>
+</div>
