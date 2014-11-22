@@ -24,5 +24,38 @@ Things you may want to cover:
 * ...
 
 
+Write a Rails app that implements a leaderboard. The leaderboard associates entities with a unique name with a score.
+It has the following API functions:
+
+POST create(name, score)
+Record the score for the named entity.
+If the entity already has a leaderboard entry, update it with the new score
+Return 200 on success.
+
+GET show(name)
+Return the score and rank for the user
+Return 404 if the user is not found in the leaderboard
+
+GET index(offset, number_of_entries)
+Return up to number_of_entries records from the leaderboard, starting at offset.
+If number_of_entries is not specified, default to 10.
+Do not allow more than 100 records from being returned.
+If offset is not specified, default to 0 (top of leaderboard).
+Returns a JSON array or HTML table, with each element / row displaying the name, rank, and score.
+Return 404 if the offset is out of range
+Return Bad Request if the number of entries exceeded the maximum.
+
+DELETE destroy(name) (DELETE)
+Remove the named entry from the leaderboard.
+Return 200 if successful, 404 if not found
+Use a relational database for persistance
+Limit use of 3rd party gems that would be required in a production environment. The goal is to see how you'd implement this app yourself without.  
+The app should be readily scalable based on traffic and the number of entries.
+
+
+
+
+
+
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.

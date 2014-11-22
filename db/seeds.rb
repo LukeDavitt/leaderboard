@@ -7,13 +7,13 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 # ruby encoding: utf-8
 players_list = [
-  [ "Tanner F.", 10, 1 ],
-  [ "Luke D.", 8, 2 ],
-  [ "Scott P.", 7, 3],
-  [ "Rocky B.", 6, 4],
-  [ "SpiderWoman", 5, 5]
+  [ "Dustin", "IsFat", 10, 1 ],
+  [ "Luke", "IsSweet", 8, 2 ],
+  [ "Scott", "LastName", 7, 3],
+  [ "Rocky", "Balboa",6, 4],
+  [ "Spider","Man", 5, 5]
 ]
 
-players_list.each do |name, score, rank|
-  Player.create( name: name, score: score, rank: rank )
+players_list.each do |first_name, last_name, score, rank|
+  Player.create( first_name: first_name, last_name: last_name, score: score, rank: rank )
 end

@@ -1,5 +1,7 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Player do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe Player, :type => :model do
+  it "is valid with a firstname, lastname and rank"  do
+  	  expect(build(:player)).to be_valid
+   end
 end
