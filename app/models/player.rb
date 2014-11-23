@@ -6,10 +6,11 @@ class Player < ActiveRecord::Base
 	before_save :set_ranks_for_new, :if => Proc.new { |obj| obj.rank.nil? }
 	before_destroy :set_ranks_for_destroy
 
-	protected
+	private
 		def set_ranks_for_new
 		  records = Player.ordered.all
 	      lower_rank = false
+	      write_attribute(:rank, records.count+1)
 	      records.each do |record| 		
  	      	if self.score >= record.score && lower_rank == false
  	      		write_attribute(:rank, record.rank)
