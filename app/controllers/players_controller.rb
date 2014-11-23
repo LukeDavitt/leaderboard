@@ -48,7 +48,7 @@ class PlayersController < ApplicationController
 	  end
 
 	  def player_params
-	    params.require(:player).permit(:name, :score)
+	    params.require(:player).permit(:first_name, :last_name, :score)
 	  end
 
 	  rescue_from ActiveRecord::RecordNotFound do
