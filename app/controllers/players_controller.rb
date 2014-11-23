@@ -5,7 +5,7 @@ class PlayersController < ApplicationController
 
 	def index
 		#@players = Player.ordered.limit(number_of_entries).offset(offset)
-		@players = Player.ordered.all
+		@players = Player.descending.all
 		respond_with @players		
 	end
 

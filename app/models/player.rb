@@ -1,5 +1,6 @@
 class Player < ActiveRecord::Base
-	scope :ordered, ->{ order('score desc') }
+	scope :descending, ->{ order('score desc') }
+	scope :ascending, ->{ order('score asc')}
 	validates :first_name, presence: true
 	validates :last_name, presence: true
 	validates :score, :numericality => {:only_integer => true}
@@ -8,26 +9,24 @@ class Player < ActiveRecord::Base
 
 	private
 		def set_ranks_for_new
-		  records = Player.ordered.all
-	      lower_rank = false
-	      write_attribute(:rank, records.count+1)
-	      records.each do |record| 		
- 	      	if self.score >= record.score && lower_rank == false
- 	      		write_attribute(:rank, record.rank)
- 	      		lower_rank = true
- 	      		if record.score != self.score
- 	      			record.rank += 1
- 	      			record.save
- 	      		end
- 	      	elsif lower_rank 
- 	      		record.rank +=1
+		  records = Player.ascending.all
+		  write_attribute(:rank, 1)
+	      records.each do |record|
+	      	if record.score < self.score
+ 	      		record.rank += 1
  	      		record.save
- 	      	end 
+ 	      	elsif record.score == self.score
+ 	      		write_attribute(:rank, record.rank)
+ 	      		break
+ 	      	else
+ 	      		write_attribute(:rank, record.rank+1)
+ 	      		break
+ 	      	end
 	      end
 	    end
 
 	    def set_ranks_for_destroy
-	    	records = Player.ordered.all
+	    	records = Player.descending.all
 	    	records.each do |record|
 	    		if record.score < self.score
 	    			record.rank -= 1
