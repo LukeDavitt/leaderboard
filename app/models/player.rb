@@ -7,14 +7,37 @@ class Player < ActiveRecord::Base
 	before_save :set_ranks_for_new, :if => Proc.new { |obj| obj.rank.nil? }
 	before_destroy :set_ranks_for_destroy
 
+	def set_rank_for_edit
+		records = Player.ascending.all
+		
+		records.each do |record|
+			if record.score <= self.score && record.id != self.id
+				write_attribute(:rank, record.rank)
+				if record.score < self.score
+					self.decrease_rank(record)
+				end
+			end
+		end
+		self.save
+	end
+
+	def decrease_rank(record)
+		record.rank += 1
+		record.save
+	end
+
+	def increase_rank(record)
+		record.rank -= 1
+	    record.save
+	end
+	
 	private
 		def set_ranks_for_new
 		  records = Player.ascending.all
 		  write_attribute(:rank, 1)
 	      records.each do |record|
 	      	if record.score < self.score
- 	      		record.rank += 1
- 	      		record.save
+ 	      		self.decrease_rank(record)
  	      	elsif record.score == self.score
  	      		write_attribute(:rank, record.rank)
  	      		break
@@ -29,8 +52,7 @@ class Player < ActiveRecord::Base
 	    	records = Player.descending.all
 	    	records.each do |record|
 	    		if record.score < self.score
-	    			record.rank -= 1
-	    			record.save
+	    			self.increase_rank(record)
 	    		end
 	    	end
 	    end

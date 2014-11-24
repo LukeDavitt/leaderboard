@@ -4,7 +4,7 @@ RSpec.describe Player, :type => :model do
   it "is valid with a firstname, lastname and rank"  do
   	  expect(build(:player)).to be_valid
   end
-  #TO DO  write appropriate test for testing rank
+  
   it  "creates the appropriate rank on new player" do
   	for i in 0..10
   		#use the create method rather then build to call validation methods for rank
@@ -17,4 +17,6 @@ RSpec.describe Player, :type => :model do
 		rank = player.rank
 	end
   end
+
+  #TO DO write appropriate edit spec
 end

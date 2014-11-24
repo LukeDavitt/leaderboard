@@ -4,7 +4,6 @@ class PlayersController < ApplicationController
 	before_action :load_player, only: [:show, :edit, :update, :destroy]
 
 	def index
-		#@players = Player.ordered.limit(number_of_entries).offset(offset)
 		@players = Player.descending.all
 		respond_with @players		
 	end
@@ -31,6 +30,7 @@ class PlayersController < ApplicationController
 	
 	def update
 		if @player.update(player_params)
+		  @player.set_rank_for_edit
 	      flash[:notice] = 'Player was successfully updated.'
 	    end
 	    respond_with @player, :location => players_path
