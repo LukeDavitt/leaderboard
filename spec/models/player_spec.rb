@@ -5,10 +5,16 @@ RSpec.describe Player, :type => :model do
   	  expect(build(:player)).to be_valid
   end
   #TO DO  write appropriate test for testing rank
-  it  "has the appropriate rank do" do
-  	player_1 = build(:player)
-  	player_2 = build(:player)
-  	puts player_1.rank
-  	puts player_2.rank
+  it  "creates the appropriate rank on new player" do
+  	for i in 0..10
+  		#use the create method rather then build to call validation methods for rank
+	   FactoryGirl.create(:player)
+	end
+	rank = 1
+	players = Player.descending.all
+	players.each do |player|
+		expect(player.rank).to be >= rank
+		rank = player.rank
+	end
   end
 end
