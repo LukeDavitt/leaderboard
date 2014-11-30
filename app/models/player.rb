@@ -9,15 +9,19 @@ class Player < ActiveRecord::Base
 
 	def set_rank_for_edit
 		records = Player.ascending.all
-		
-		records.each do |record|
-			if record.score <= self.score && record.id != self.id
-				write_attribute(:rank, record.rank)
-				if record.score < self.score
-					self.decrease_rank(record)
-				end
-			end
-		end
+		rank = records.length
+    	records.each do |record|
+    		if record.score < self.score
+    			rank = record.rank
+    			if record.rank <= self.rank
+	    			self.decrease_rank(record)
+     			end
+    		elsif record.score > self.score
+    			self.increase_rank(record)
+    		end
+
+    	end
+    	write_attribute(:rank, rank)
 		self.save
 	end
 
@@ -36,16 +40,13 @@ class Player < ActiveRecord::Base
 		  records = Player.ascending.all
 		  write_attribute(:rank, 1)
 	      records.each do |record|
-	      	if record.score < self.score
- 	      		self.decrease_rank(record)
- 	      	elsif record.score == self.score
- 	      		write_attribute(:rank, record.rank)
- 	      		break
- 	      	else
- 	      		write_attribute(:rank, record.rank+1)
- 	      		break
- 	      	end
-	      end
+			if record.score <= self.score && record.id != self.id
+				write_attribute(:rank, record.rank)
+				if record.score < self.score
+					self.decrease_rank(record)
+				end
+		    end
+		  end
 	    end
 
 	    def set_ranks_for_destroy
