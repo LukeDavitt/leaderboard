@@ -9,8 +9,10 @@ class PlayersController < ApplicationController
 	end
 
 	def show
-		unless @player.nil?
-		  respond_with @player
+		if Player.where(id: @player.id).empty?
+			not_found
+		else
+			respond_with @player
 		end
 	end
 
