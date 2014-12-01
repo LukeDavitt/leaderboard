@@ -21,7 +21,7 @@ RSpec.describe PlayersController, :type => :controller do
 	end
 	it "returns a 404 if player doesnt exist" do  
 	  player = Player.create(first_name:"something", last_name:"else", score: 0)
-	  player.id = 20000
+	  player.id = 2000
       get :show, id: player
       expect(response).to render_template(:file => "#{Rails.root}/public/404.html")
     end
