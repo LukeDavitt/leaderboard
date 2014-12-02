@@ -19,7 +19,7 @@
 	    <% @players.each do |player| %>
 	      <tr data-item-id=<%= "#{player.id}" %> class="item">
 	        <td>
-	          <%= player.name %>
+	          <%= player.first_name %> <%= player.last_name %>
 	        </td>
 	        <td>
 	          <%= player.score %>
