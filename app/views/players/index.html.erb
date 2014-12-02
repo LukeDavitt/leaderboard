@@ -16,7 +16,7 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <% @players.each do |player| %>
+	    <% @players.each_with_index do |player, index| %>
 	      <tr data-item-id=<%= "#{player.id}" %> class="item">
 	        <td>
 	          <%= player.first_name %> <%= player.last_name %>
@@ -28,7 +28,7 @@
 	        	<%= link_to player_path(player), :method => :delete, :data => {:confirm => 'Are you sure?'}, :class => "btn btn-notext pull-right" do %>
 		        	<span class="glyphicon glyphicon-remove">Delete</span>
 		        <% end %>
-		        <%= player.rank %>
+		        <%= index+1 %>
 
 		        <%= link_to 'show', player_path(player), :class => 'btn btn-default pull-right' %> 
 		        
